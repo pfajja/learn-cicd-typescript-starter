@@ -5,6 +5,16 @@ on:
     branches: [main]
 
 jobs:
+  style:
+    name: Style
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Style
+        run: npm run format:check
   tests:
     name: Tests
     runs-on: ubuntu-latest
@@ -23,7 +33,6 @@ jobs:
 
       - name: Style
         run: npm run format:check
-
 
       - name: Run tests
         run: npm run test -- --coverage
