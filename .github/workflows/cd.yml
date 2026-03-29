@@ -1,0 +1,28 @@
+name: Continuous Deployment
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  Deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 4. It should checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 5. It should set up a Node environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # You can specify your preferred version here
+
+      # 6. It should install all dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # 7. It should build the app using npm run build
+      - name: Build app
+        run: npm run build
