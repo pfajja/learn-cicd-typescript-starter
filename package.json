@@ -48,6 +48,7 @@
     "singleQuote": false
   },
   "optionalDependencies": {
+    "@libsql/linux-x64-gnu": "0.4.7",
     "@rollup/rollup-linux-x64-gnu": "*"
   }
 }
