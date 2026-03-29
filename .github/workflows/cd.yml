@@ -37,13 +37,7 @@ jobs:
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
 
-      # Configure Docker to talk to your Artifact Registry
-      - name: Docker Auth
+      # Build the image with Cloud Build and push to Artifact Registry
+      - name: Cloud Build submit
         run: |
-          gcloud auth configure-docker us-central1-docker.pkg.dev
-
-      # Build and Push the Docker Image
-      - name: Build and Push Docker Image
-        run: |
-          docker build -t us-central1-docker.pkg.dev/notely-491712/notely-ar-repo/notely-app:latest .
-          docker push us-central1-docker.pkg.dev/notely-491712/notely-ar-repo/notely-app:latest
+          gcloud builds submit --tag "us-central1-docker.pkg.dev/notely-491712/notely-ar-repo/notely-app:latest" .
