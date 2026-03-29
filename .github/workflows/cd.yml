@@ -26,3 +26,24 @@ jobs:
       # 7. It should build the app using npm run build
       - name: Build app
         run: npm run build
+
+      # Authenticate to Google Cloud using your Secret
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+
+      # Set up the gcloud CLI
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      # Configure Docker to talk to your Artifact Registry
+      - name: Docker Auth
+        run: |
+          gcloud auth configure-docker us-central1-docker.pkg.dev
+
+      # Build and Push the Docker Image
+      - name: Build and Push Docker Image
+        run: |
+          docker build -t us-central1-docker.pkg.dev/notely-491712/notely-ar-repo/notely-app:latest .
+          docker push us-central1-docker.pkg.dev/$notely-491712/notely-ar-repo/notely-app:latest
